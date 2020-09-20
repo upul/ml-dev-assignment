@@ -1,0 +1,13 @@
+{
+    "LOGGING": {
+        "FILE_NAME": "sentiment.log",
+        "MODE": "a",
+        "MAX_FILE_SIZE": 5242880,
+        "BACKUP_COUNT": 2,
+        "LEVEL": "INFO",
+        "FORMATTER": "%(asctime)s %(levelname)s   %(message)s"
+    },
+    "MODEL": {
+        "LOCATION": "./sentiment/model/ovr_logistic.joblib"
+    }
+}
