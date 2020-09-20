@@ -43,6 +43,8 @@ def do_prediction():
 
     try:
         json = request.json
+
+        # TODO(upul): move checking parameters for errors to a separate utility method
         if not json:
             message = 'can not decode json from post body. ' + \
                 'probably you need to send Content-Type: application/json header'
