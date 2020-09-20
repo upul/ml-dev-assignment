@@ -31,11 +31,25 @@ class Collector:
 class RequestStatistics:
     """Simple in-memory data structure to store API request details
     """
+
     def __init__(self):
         self.stat_cache = defaultdict(Collector)
 
     def register_new_call(self, api):
+        """Use this method to register API calls.
+
+        Args:
+            api (str): API name for example: health, predict
+        """
         self.stat_cache[api].increment()
 
     def num_calls_per_minute(self, api):
+        """Calculates and returns the number of API calls happens in this minute 
+
+        Args:
+            api (str): API name for example: health, predict
+
+        Returns:
+            int: number of API calls of this minute
+        """
         return self.stat_cache[api].per_minute()

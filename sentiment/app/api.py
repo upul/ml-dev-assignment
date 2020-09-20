@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 import joblib
 from flask import Flask, jsonify, request
@@ -144,20 +145,24 @@ def _build_response_json(request_id, language, predictions):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description='Homebrew ML model serving server')
-    parser.add_argument(
-        '--port', help='The port on which Flask is running', required=True)
-    parser.add_argument(
-        '--mode', help='The mode the Flak server is running. Possible options: DEV, TEST, and DEPLOY', required=True)
-    args = vars(parser.parse_args())
+    try:
+        parser = argparse.ArgumentParser(
+            description='Homebrew ML model serving server')
+        parser.add_argument(
+            '--port', help='The port on which Flask is running', required=True)
+        parser.add_argument(
+            '--mode', help='The mode the Flak server is running. Possible options: DEV, TEST, and DEPLOY', required=True)
+        args = vars(parser.parse_args())
 
-    logger.info(
-        f"Flask will be running in {args['mode']} mode on {args['port']} port.")
+        logger.info(
+            f"Flask will be running in {args['mode']} mode on {args['port']} port.")
 
-    model_path = Config().ModelConfig().read('LOCATION')
-    logger.info(f'loading model from: {model_path}')
-    load_ml_model(model_path)
+        model_path = Config().ModelConfig().read('LOCATION')
+        logger.info(f'loading model from: {model_path}')
+        load_ml_model(model_path)
 
-    app.run(host='0.0.0.0', port=args['port'],
-            debug=False if args['mode'] == 'DEPLOY' else True)
+        app.run(host='0.0.0.0', port=args['port'],
+                debug=False if args['mode'] == 'DEPLOY' else True)
+    except Exception as ex:
+        logger.critical(f'An error has occurred while running Flask application: {ex}')
+        sys.exit(-1)
