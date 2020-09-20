@@ -30,9 +30,14 @@ Now your development environment is ready. Next, you might need to run our test 
 
 `python -m pytest`
 
-Also, it is worth to note that, we have provided a configuration file that you can use to configure:
+Also, it is worth to note that, we have provided a configuration file (`./config.json`) that you can use to configure:
 1. **Logging Parameters** - logging file name, default logging level, max logging file size, etc.
 2. **Model parameters** - saved model location, etc.
+
+Use the following command to run the server.
+
+`python -m sentiment.app.api --port 8080 --mode DEV`
+
 
 ### Deployment Setup
 
