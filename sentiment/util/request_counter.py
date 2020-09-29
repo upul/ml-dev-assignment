@@ -18,11 +18,11 @@ class Collector:
 
     def per_minute(self):
         now = datetime.now()
-        one_hour_before = now - timedelta(minutes=1)
+        one_minute_before = now - timedelta(minutes=1)
 
         # remove all api calls that are older than one hour
         with self.lock:
-            while self.collector and self.collector[0] < one_hour_before:
+            while self.collector and self.collector[0] < one_minute_before:
                 self.collector.popleft()
 
         return len(self.collector)
